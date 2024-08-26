@@ -59,6 +59,10 @@ Tailwind CSS nos ha permitido:
 
 ## Cómo Ejecutar el Proyecto
 
+
 1. **Clonar el repositorio**:
    ```bash
-   git clone https://github.com/tu-usuario/tu-repositorio.git
+   git clone https://github.com/MarcosAyrton/Proyectos_Varios.git
+
+2. **En VisualStudioCode**:
+   - Descargar la extension ** Live Preview ** y abrir el index.html de forma local en su navegador preferido.
