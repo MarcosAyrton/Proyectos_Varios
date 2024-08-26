@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/correcciones.css">
+    <title>Sabores del Alma</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-success">
+            <div class="container-fluid align-items-center">
+                <a href="index.html"><img src="img/Sabores_LOGO.png" alt="logo" width="120px" height="120px"></a>
+                <a class="navbar-brand fs-2 fw-bold italic">Sabores del Alma</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item p-1">
+                            <a class="nav-link active fs-5" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item p-1">
+                            <a class="nav-link fs-5" href="Historia-del-Negocio.html">Historia del Negocio</a>
+                        </li>
+                        <li class="nav-item p-1">
+                            <a class="nav-link fs-5" href="promo_combo.html">Promociones en Combos</a>
+                        </li>
+                        <li class="nav-item dropdown p-1">
+                            <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Catalogo de Comidas
+                            </a>
+                            <ul class="dropdown-menu fs-6 bg-success-subtle">
+                                <li><a class="dropdown-item" href="pastas.html">Pastas</a></li>
+                                <li><a class="dropdown-item" href="pizzas.html">Pizzas</a></li>
+                                <li><a class="dropdown-item" href="asado.html">Asado</a></li>
+                                <li><a class="dropdown-item" href="sandwiches.html">Sandwiches</a></li>
+                                <li><a class="dropdown-item" href="ensaladas.html">Ensaladas</a></li>
+                                <li><a class="dropdown-item" href="minutas.html">Minutas</a></li>
+                                <li><a class="dropdown-item" href="entradas.html">Entradas</a></li>
+                                <li><a class="dropdown-item" href="postres.html">Postres</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="vinos.html">Vinos</a></li>
+                                <li><a class="dropdown-item" href="cervezas.html">Cervezas</a></li>
+                                <li><a class="dropdown-item" href="gaseosas.html">Gaseosas</a></li>
+                                <li><a class="dropdown-item" href="aguas_saborizadas.html">Aguas Saborizadas</a></li>
+                            </ul>
+                    </ul>
+                    <div class="d-flex m-4 position-relative">
+                        <button class="btn btn-outline-dark position-relative" id="cartButton">
+                            <i class="bi bi-cart"></i> Carrito
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </nav>
+        <div class="card border-success" id="cartCard" style="display:none; position:fixed; top:15%; right:1%; width:400px; z-index:1000;">
+            <div class="card-header bg-success-subtle">
+                <h5 class="card-title">Carrito de Compras</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Tu carrito está vacío.</p>
+                <!--Aca irian los productos agregados -->
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-success" id="payButton">Proceder al Pago</button>
+                <button class="btn btn-secondary" id="closeCartButton">Cerrar</button>
+            </div>
+        </div>
+        
+        <!-- formulario de pago -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasPayment" aria-labelledby="offcanvasPaymentLabel">
+            <div class="offcanvas-header bg-success">
+                <h5 id="offcanvasPaymentLabel">Proceso de Pago</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div id="cartSummary">
+                    <h6>Resumen del Carrito</h6>
+                    <ul id="cartSummaryItems"></ul>
+                    <p id="cartTotal"></p>
+                </div>
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control border-success" id="name" required>
+                        <div class="error-message" id="nameError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="mt-3">Dirección</label>
+                        <input type="text" class="form-control border-success" id="address" required>
+                        <div class="error-message" id="addressError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardNumber" class="mt-3">Número de Tarjeta</label>
+                        <input type="text" class="form-control border-success" id="cardNumber" required>
+                        <div class="error-message" id="cardNumberError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate" class="mt-3">Fecha de Expiración (MM/YY)</label>
+                        <div class="d-flex justify-content-between">
+                          <input type="text" class="form-control border-success me-2" id="expiryDate" required placeholder="MM">
+                          <input type="text" class="form-control border-success" id="expiryDate" required placeholder="YY">
+                        </div>
+                        <div class="error-message" id="expiryDateError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv" class="mt-3">CVV</label>
+                        <input type="text" class="form-control border-success" id="cvv" required>
+                        <div class="error-message" id="cvvError"></div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <button type="button" class="btn btn-success mt-4 col-md-5" id="submitPaymentButton">Pagar</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+    </header>
+    <main>
+        <div class="container py-4">
+            <div class="row g-4">
+                <!-- Tarjeta de producto -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="img/rabas1.jpg" class="card-img-top product-img" alt="Rabas a la provenzal">
+                        <div class="card-body">
+                            <h5 class="card-title">Rabas a la provenzal</h5>
+                            <p class="card-text">Rabas con ajo y perejil.</p>
+                        </div>
+                        <div class="card-footer bg-light">
+                          <p class="text-dark fw-bold fs-5 product-price">$4499.99</p> <!-- Precio -->
+                            <button class="btn btn-success w-100 mt-2 add-to-cart-sandwich" type="button">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de producto -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="img/empanadas.jpg" class="card-img-top product-img" alt="Empanadas salteñas">
+                        <div class="card-body">
+                            <h5 class="card-title">Empanadas salteñas</h5>
+                            <p class="card-text">Empanadas de carne, cebolla, papa, pimenton, huevo.</p>
+                        </div>
+                        <div class="card-footer bg-light">
+                          <p class="text-dark fw-bold fs-5 product-price">$1499.99</p> <!-- Precio -->
+                            <button class="btn btn-success w-100 mt-2 add-to-cart-sandwich" type="button">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de producto -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="img/provoleta.jpg" class="card-img-top product-img" alt="Provoleta">
+                        <div class="card-body">
+                            <h5 class="card-title">Provoleta asada</h5>
+                            <p class="card-text">Queso provolone asado.</p>
+                        </div>
+                        <div class="card-footer bg-light">
+                          <p class="text-dark fw-bold fs-5 product-price">$3200.00</p> <!-- Precio -->
+                            <button class="btn btn-success w-100 mt-2 add-to-cart-sandwich" type="button">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de producto -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="img/picada.jpg" class="card-img-top product-img" alt="Picada de quesos y fiambres">
+                        <div class="card-body">
+                            <h5 class="card-title">Picada de quesos y fiambres</h5>
+                            <p class="card-text">Queso pategras, queso sardo, queso roquefort, jamon cocido, jamon crudo, salame, lomo ahumado, aceitunas.</p>
+                        </div>
+                        <div class="card-footer bg-light">
+                          <p class="text-dark fw-bold fs-5 product-price">$3999.99</p> <!-- Precio -->
+                            <button class="btn btn-success w-100 mt-2 add-to-cart-sandwich" type="button">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de producto -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="img/vitel_tone.jpg" class="card-img-top product-img" alt="Vitel tone">
+                        <div class="card-body">
+                            <h5 class="card-title">Vitel tone</h5>
+                            <p class="card-text">Lomo acompañado de salsa vitel tone y huevo rallado.</p>
+                        </div>
+                        <div class="card-footer bg-light">
+                          <p class="text-dark fw-bold fs-5 product-price">$4299.99</p> <!-- Precio -->
+                            <button class="btn btn-success w-100 mt-2 add-to-cart-sandwich" type="button">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de producto -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="img/bruschetas.jpg" class="card-img-top product-img" alt="Bruschettas">
+                        <div class="card-body">
+                            <h5 class="card-title">Bruschettas</h5>
+                            <p class="card-text">Tres rodajas de pan tostado con queso cremoso, tomate cherry y hojas de albahaca.</p>
+                        </div>
+                        <div class="card-footer bg-light">
+                          <p class="text-dark fw-bold fs-5 product-price">$2999.99</p> <!-- Precio -->
+                            <button class="btn btn-success w-100 mt-2 add-to-cart-sandwich" type="button">Añadir al Carrito</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tarjeta de producto -->
+            </div>
+        </div>
+    </main>
+</body>
+<div class="container-fluid bg-success-subtle">
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Inicio</a></li>
+            <li class="nav-item"><a href="Contactenos.html" class="nav-link px-2 text-body-secondary">Contactenos</a></li>
+            <li class="nav-item"><a href="uneteaNosotros.html" class="nav-link px-2 text-body-secondary">Unete a nosotros</a></li>
+            <li class="nav-item"><a href="faqs.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">&copy; 2024 Sabores del Alma</p>
+    </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="js/pago_cart.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/sandwiches.js"></script>
+</html>
