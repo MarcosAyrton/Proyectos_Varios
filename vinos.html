@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/correcciones.css">
+    <title>Sabores del Alma</title>
+</head>
+<body>
+    <header>
+        <nav class="bg-green-500">
+            <div class="container mx-auto flex items-center">
+                <a href="index.html">
+                    <img src="img/Sabores_LOGO.png" alt="logo" class="w-20 h-20">
+                </a>
+                <h2 class="text-2xl font-bold ml-4 italic">Sabores del Alma</h2>
+                <ul class="flex flex-grow justify-end space-x-4">
+                    <li>
+                        <a href="index.html" class="block hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="historia_del_negocio.html" class="block hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium">Historia del Negocio</a>
+                    </li>
+                    <li>
+                        <a href="promociones_en_combo.html" class="block hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium">Promociones en Combos</a>
+                    </li>
+                    <li class="relative group">
+                        <a class="block cursor-pointer hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium" href="#" id="dropdownMenuButton">
+                            Catalogo de Comidas
+                        </a>
+                        <ul id="dropdownMenu" class="absolute left-0 mt-2 w-48 bg-green-100 rounded-lg shadow-lg hidden group-hover:block">
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="pastas.html">Pastas</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="pizzas.html">Pizzas</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="asado.html">Asado</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="sandwiches.html">Sandwiches</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="ensaladas.html">Ensaladas</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="minutas.html">Minutas</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="entradas.html">Entradas</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="postres.html">Postres</a></li>
+                            <li><hr class="my-1 border-gray-200"></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="vinos.html">Vinos</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="cervezas.html">Cervezas</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="gaseosas.html">Gaseosas</a></li>
+                            <li><a class="block px-4 py-2 text-sm hover:bg-green-200 rounded-md" href="aguas_saborizadas.html">Aguas Saborizadas</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="block hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium" id="cartButton">
+                            Carrito
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden " id="cartCard" style="display:none; position:fixed; top:15%; right:1%; width:400px; z-index:1000;">
+            <div class="card-header bg-success-subtle">
+                <h5 class="card-title bg-green-500 flex justify-center p-4">Carrito de Compras</h5>
+            </div>
+            <div class="card-body bg-gray-200 py-3 px-3 mx-auto">
+                <p class="card-text flex justify-around">Tu carrito está vacío.</p>
+                <!--Aca irian los productos agregados -->
+            </div>
+            <div class="flex justify-around py-3 bg-gray-400">
+                <button class="block bg-green-500 hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium" id="payButton">Proceder al Pago</button>
+                <button class="block bg-red-500 hover:bg-red-600 px-3 py-2 rounded-md text-sm font-medium" id="closeCartButton">Cerrar</button>
+            </div>
+        </div>
+
+         <!-- formulario de pago -->
+         <div id="offcanvasPayment" class="fixed inset-0 flex justify-start bg-black bg-opacity-50 transform transition-transform translate-x-full z-50">
+            <div class="w-full sm:w-1/2 lg:w-1/3 h-screen bg-white shadow-xl p-6 overflow-y-auto">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h5 id="offcanvasPaymentLabel" class="text-lg font-semibold text-green-600">Proceso de Pago</h5>
+                <button type="button" id="closeButton" class="text-red-500 hover:text-red-700 text-2xl">&times;</button>
+            </div>
+            <div id="cartSummary" class="mb-6">
+                <h6 class="text-lg font-semibold text-gray-700">Resumen del Carrito</h6>
+                <ul id="cartSummaryItems" class="list-disc pl-5"></ul>
+                <p id="cartTotal" class="mt-2 text-lg font-bold text-gray-800"></p>
+            </div>
+            <form id="checkoutForm">
+                <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                <input type="text" id="name" class="mt-1 block w-full border border-green-500 rounded-md shadow-sm py-2 px-3 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" required>
+                <div id="nameError" class="text-red-500 text-xs mt-1"></div>
+                </div>
+                <div class="mb-4">
+                <label for="address" class="block text-sm font-medium text-gray-700">Dirección</label>
+                <input type="text" id="address" class="mt-1 block w-full border border-green-500 rounded-md shadow-sm py-2 px-3 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" required>
+                <div id="addressError" class="text-red-500 text-xs mt-1"></div>
+                </div>
+                <div class="mb-4">
+                <label for="cardNumber" class="block text-sm font-medium text-gray-700">Número de Tarjeta</label>
+                <input type="text" id="cardNumber" class="mt-1 block w-full border border-green-500 rounded-md shadow-sm py-2 px-3 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" required>
+                <div id="cardNumberError" class="text-red-500 text-xs mt-1"></div>
+                </div>
+                <div class="mb-4">
+                <label for="expiryDate" class="block text-sm font-medium text-gray-700">Fecha de Expiración (MM/YY)</label>
+                <div class="flex space-x-2">
+                    <input type="text" id="expiryMonth" class="block w-full border border-green-500 rounded-md shadow-sm py-2 px-3 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" placeholder="MM" required>
+                    <input type="text" id="expiryYear" class="block w-full border border-green-500 rounded-md shadow-sm py-2 px-3 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" placeholder="YY" required>
+                </div>
+                <div id="expiryDateError" class="text-red-500 text-xs mt-1"></div>
+                </div>
+                <div class="mb-6">
+                <label for="cvv" class="block text-sm font-medium text-gray-700">CVV</label>
+                <input type="text" id="cvv" class="mt-1 block w-full border border-green-500 rounded-md shadow-sm py-2 px-3 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm" required>
+                <div id="cvvError" class="text-red-500 text-xs mt-1"></div>
+                </div>
+                <div class="flex justify-center">
+                <button type="button" id="submitPaymentButton" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md w-1/2">Pagar</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container mx-auto p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjeta de producto -->
+                <div class="bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden">
+                    <img class="w-full h-56 object-cover" src="img/vino_toro_logo.png" alt="Vino Toro">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Vino Toro</h3>
+                        <p class="text-gray-700">Vino Toro Viejo en botella de 1lt.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50">
+                        <span class="text-gray-900 font-semibold text-lg">$3999.99</span> <!-- Precio -->
+                        <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 mt-2 add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                 <!-- Tarjeta de producto -->
+                 <div class="bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden">
+                    <img class="w-full h-56 object-cover" src="img/alma-mora.png" alt="Alma Mora">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Alma Mora</h3>
+                        <p class="text-gray-700">Vino Alma Mora en botella de 750ml.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50">
+                        <span class="text-gray-900 font-semibold text-lg">$4499.99</span> <!-- Precio -->
+                        <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 mt-2 add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+                 <!-- Tarjeta de producto -->
+                 <div class="bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden">
+                    <img class="w-full h-56 object-cover" src="img/santa-julia.jpg" alt="Santa Julia">
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Santa Julia</h3>
+                        <p class="text-gray-700">Vino Santa Julia en botella de 750ml.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50">
+                        <span class="text-gray-900 font-semibold text-lg">$4299.99</span> <!-- Precio -->
+                        <button class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 mt-2 add-to-cart">Añadir al Carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+<footer class="p-4 bg-green-500">
+    <ul class="container mx-auto flex justify-center items-center">
+        <li class="nav-item"><a href="index.html" class="font-medium">Inicio</a></li>
+        <li class="nav-item"><a href="Contactenos.html" class="nav-link px-2 text-body-secondary">Contactenos</a></li>
+        <li class="nav-item"><a href="uneteaNosotros.html" class="nav-link px-2 text-body-secondary">Unete a nosotros</a></li>
+        <li class="nav-item"><a href="faqs.html" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+    </ul>
+    <p class="flex justify-center mt-5">&copy; 2024 Sabores del Alma</p>
+</footer>
+
+<script src="js/pago_cart.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/sandwiches.js"></script>
+<script src="js/dropdown.js"></script>
+</html>

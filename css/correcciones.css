@@ -1,0 +1,53 @@
+.custom-border-text {
+    text-shadow:
+        2px 2px 0 #198754, -2px -2px 0 #198754, 
+        2px -2px 0 #198754, -2px 2px 0 #198754, 
+        2px 0px 0 #198754, 0px 2px 0 #198754, 
+        -2px 0px 0 #198754, 0px -2px 0 #198754;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+:root{
+    --fuente: 'Abril Fatface';
+}
+
+.fuente-personalizada{
+    font-family: var(--fuente);
+    font-weight: bolder;
+}
+
+.offcanvas {
+    transition: transform 0.3s ease-in-out;
+}
+.offcanvas-hidden {
+    transform: translateX(-100%);
+}
+.offcanvas-visible {
+    transform: translateX(0);
+}
+
+
+.backdrop-blur {
+    backdrop-filter: blur(10px);
+}
+
+.carousel-item {
+    opacity: 0;
+}
+.carousel-item.active {
+    opacity: 1;
+}
+
+
+#dropdownMenu {
+    z-index: 1000; /* Este valor debe ser suficientemente alto para superponerse al carrusel */
+}
+
+.accordion-content {
+    display: none;
+  }
+  .accordion-content.show {
+    display: block;
+  }
